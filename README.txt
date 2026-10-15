@@ -25,9 +25,29 @@ HOW TO USE
   Keyboard: Enter/Space = flip, right arrow = got it, left arrow = wrong,
             M = mnemonic, E = examples.
 
+ONLINE (website + backend + database, all free)
+  Website:  https://nihongo-vocab-drill.nihongo-vocab-drill.workers.dev
+  Backup:   https://mryogiii.github.io/vocab_drill-n5-n4-/  (same app, same sync)
+  - Hosted on Cloudflare Workers (free plan). The database is Cloudflare D1.
+  - "Online sync" on the home screen saves your progress to the database.
+    Tap "Turn on sync" on one device, then on your other devices tap
+    "I have a sync key" and type the key. No email or password.
+  - Keep your sync key private: anyone with it can see and change your progress.
+
+  Files for the backend:
+    sync.js            Runs in the browser; uploads/downloads progress.
+    worker/index.js    The server (Cloudflare Worker): sync API + serves the app.
+    schema.sql         Database tables.
+    wrangler.jsonc     Cloudflare settings (database id, etc.).
+    .assetsignore      Files the server must NOT publish.
+
+  To publish changes to the Cloudflare site, run this in this folder:
+    npx wrangler@4 deploy
+  (git push updates the GitHub Pages copy only.)
+
 NOTES
-  - Progress is saved in the browser you use. The local copy and the online
-    version keep separate progress, and so do different browsers or devices.
+  - Without sync, progress is saved only in the browser you use, so different
+    browsers or devices keep separate progress.
   - Every word has a built-in mnemonic (tap "Mnemonic" after flipping a card).
     They are inside index.html, so they work offline with no Claude needed.
     The CSV files also include them in a "mnemonic" column.

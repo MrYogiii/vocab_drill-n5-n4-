@@ -1,0 +1,11 @@
+// Cloudflare Worker config: serves the app from this folder and the sync API from worker/index.js.
+// Deploy with: npx wrangler@4 deploy
+{
+  "name": "nihongo-vocab-drill",
+  "main": "worker/index.js",
+  "compatibility_date": "2025-09-01",
+  "assets": { "directory": ".", "binding": "ASSETS" },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "vocab-db", "database_id": "9041a447-3191-476a-b094-a2d88ffdedf0" }
+  ]
+}
